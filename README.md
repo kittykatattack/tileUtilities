@@ -22,7 +22,7 @@ These two examples are the best place to start learning about how to
 use the Tile Utilities methods and objects.
     
 If you need to implement a scrolling camera to your Tiled game world,
-use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/bump) library.
+use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
 
 Table of contents
 -----------------
