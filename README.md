@@ -11,11 +11,11 @@ links below (click
 the image links to play the examples and use the arrow keys to
 move the game characters):
 
-[![Basic Scene](images/01.png)](https://cdn.gitcdn.xyz/cdn/kittykatattack/hexi/545039f3503ab58c374ba0af122cec11cc12e7a7/examples/36_tiledEditorSupport.html)
+[![Basic Scene](images/01.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/36_tiledEditorSupport.html)
 
 Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/tiledEditorSupport.js).
 
-[![Complex scrolling world](images/02.png)](https://cdn.gitcdn.xyz/cdn/kittykatattack/hexi/545039f3503ab58c374ba0af122cec11cc12e7a7/examples/37_scrollingWorldCamera.html)
+[![Complex scrolling world](images/02.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/37_scrollingWorldCamera.html)
 
 Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/scrollingWorldCamera.js).
 
