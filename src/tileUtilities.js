@@ -1,7 +1,7 @@
-class TileUtilities{
-  constructor (renderingEngine = PIXI) {
+class TileUtilities {
+  constructor(renderingEngine = PIXI) {
 
-    if (renderingEngine === undefined) throw new Error("Please assign a rendering engine in the constructor before using bump.js"); 
+    if (renderingEngine === undefined) throw new Error("Please assign a rendering engine in the constructor before using bump.js");
 
     //Find out which rendering engine is being used (the default is Pixi)
     this.renderer = "";
@@ -14,10 +14,10 @@ class TileUtilities{
       this.TextureCache = this.renderingEngine.utils.TextureCache;
       this.Texture = this.renderingEngine.Texture;
       this.Sprite = this.renderingEngine.Sprite;
-      this.Rectangle = this.renderingEngine.Rectangle;      
+      this.Rectangle = this.renderingEngine.Rectangle;
       this.loader = this.renderingEngine.loader;
       this.resources = this.renderingEngine.loader.resources;
-    }    
+    }
   }
 
   //Make a texture from a frame in another texture or image
@@ -46,7 +46,7 @@ class TileUtilities{
       texture.frame = imageFrame;
       return texture;
     }
-  }  
+  }
 
   //#### getIndex
   //The `getIndex` helper method
@@ -62,7 +62,7 @@ class TileUtilities{
 
     //Return the index number
     return index.x + (index.y * mapWidthInTiles);
-  };
+  }
 
   /*
   #### getTile
@@ -94,7 +94,7 @@ class TileUtilities{
 
     //Return the tile object
     return tile;
-  };
+  }
 
   /*
   #### surroundingCells
@@ -117,7 +117,7 @@ class TileUtilities{
       index + widthInTiles,
       index + widthInTiles + 1,
     ];
-  };
+  }
 
   //#### getPoints
   /*
@@ -151,20 +151,44 @@ class TileUtilities{
     let ca = s.collisionArea;
     if (ca !== undefined) {
       return {
-        topLeft: {x: s.x + ca.x, y: s.y + ca.y},
-        topRight: {x: s.x + ca.x + ca.width, y: s.y + ca.y},
-        bottomLeft: {x: s.x + ca.x, y: s.y + ca.y + ca.height},
-        bottomRight: {x: s.x + ca.x + ca.width, y: s.y + ca.y + ca.height}
+        topLeft: {
+          x: s.x + ca.x,
+          y: s.y + ca.y
+        },
+        topRight: {
+          x: s.x + ca.x + ca.width,
+          y: s.y + ca.y
+        },
+        bottomLeft: {
+          x: s.x + ca.x,
+          y: s.y + ca.y + ca.height
+        },
+        bottomRight: {
+          x: s.x + ca.x + ca.width,
+          y: s.y + ca.y + ca.height
+        }
       };
     } else {
       return {
-        topLeft: {x: s.x, y: s.y},
-        topRight: {x: s.x + s.width - 1, y: s.y},
-        bottomLeft: {x: s.x, y: s.y + s.height - 1},
-        bottomRight: {x: s.x + s.width - 1, y: s.y + s.height - 1}
+        topLeft: {
+          x: s.x,
+          y: s.y
+        },
+        topRight: {
+          x: s.x + s.width - 1,
+          y: s.y
+        },
+        bottomLeft: {
+          x: s.x,
+          y: s.y + s.height - 1
+        },
+        bottomRight: {
+          x: s.x + s.width - 1,
+          y: s.y + s.height - 1
+        }
       };
     }
-  };
+  }
 
   //### hitTestTile
   /*
@@ -232,7 +256,12 @@ class TileUtilities{
       case "center":
 
         //`hit` will be true only if the center point is touching
-        let point = {center: {x: sprite.centerX, y: sprite.centerY}};
+        let point = {
+          center: {
+            x: sprite.centerX,
+            y: sprite.centerY
+          }
+        };
         sprite.collisionPoints = point;
         collision.hit = Object.keys(sprite.collisionPoints).some(checkPoints);
         break;
@@ -255,7 +284,7 @@ class TileUtilities{
     //`collision.index` tells you the map array index number where the
     //collision occured
     return collision;
-  };
+  }
 
   //### updateMap
   /*
@@ -286,14 +315,15 @@ class TileUtilities{
     });
 
     //Is `spriteToUpdate` an array of sprites?
-    if(spritesToUpdate instanceof Array) {
+    if (spritesToUpdate instanceof Array) {
 
       //Get the index number of each sprite in the `spritesToUpdate` array
       //and add the sprite's `gid` to the matching index on the map
-      spritesToUpdate.forEach(function(sprite) {
+      let self = this;
+      spritesToUpdate.forEach(sprite => {
 
         //Find the new index number
-        sprite.index = this.getIndex(
+        sprite.index = self.getIndex(
           sprite.centerX, sprite.centerY,
           world.tilewidth, world.tileheight, world.widthInTiles
         );
@@ -458,7 +488,7 @@ class TileUtilities{
     //returned to the main game program
     let tiledMap = PIXI.loader.resources[jsonTiledMap].data;
     let world = new this.Container();
-    
+
 
     world.tileheight = tiledMap.tileheight;
     world.tilewidth = tiledMap.tilewidth;
@@ -488,8 +518,7 @@ class TileUtilities{
     //of each tile, plus any optional spacing thats around each tile
     let numberOfTilesetColumns =
       Math.floor(
-        tiledMap.tilesets[0].imagewidth
-        / (tiledMap.tilewidth + spacing)
+        tiledMap.tilesets[0].imagewidth / (tiledMap.tilewidth + spacing)
       );
 
     //Loop through all the map layers
@@ -529,7 +558,7 @@ class TileUtilities{
         //Loop through the `data` array of this layer
         tiledLayer.data.forEach((gid, index) => {
           let tileSprite, texture, mapX, mapY, tilesetX, tilesetY,
-              mapColumn, mapRow, tilesetColumn, tilesetRow;
+            mapColumn, mapRow, tilesetColumn, tilesetRow;
 
           //If the grid id number (`gid`) isn't zero, create a sprite
           if (gid !== 0) {
@@ -553,12 +582,8 @@ class TileUtilities{
             //there is any. This bit of code accumlates the spacing offsets from the
             //left side of the tileset and adds them to the current tile's position
             if (spacing > 0) {
-              tilesetX
-                += spacing
-                + (spacing * ((gid - 1) % numberOfTilesetColumns));
-              tilesetY
-                += spacing
-                + (spacing * Math.floor((gid - 1) / numberOfTilesetColumns));
+              tilesetX += spacing + (spacing * ((gid - 1) % numberOfTilesetColumns));
+              tilesetY += spacing + (spacing * Math.floor((gid - 1) / numberOfTilesetColumns));
             }
 
             //Use the above values to create the sprite's image from
@@ -572,7 +597,7 @@ class TileUtilities{
             //and should be accessible in the `world.objects` array.
 
             let tileproperties = tiledMap.tilesets[0].tileproperties,
-                key = String(gid - 1);
+              key = String(gid - 1);
 
             //If the JSON `tileproperties` object has a sub-object that
             //matches the current tile, and that sub-object has a `name` property,
@@ -694,7 +719,7 @@ class TileUtilities{
     //Finally, return the `world` object back to the game program
     return world;
   }
-  
+
   //The following `makeIsoTiledWorld` is currently experimental and
   //should not be used (yet!)
   /*
@@ -1078,5 +1103,5 @@ class TileUtilities{
     return world;
   }
   */
-  
+
 }
