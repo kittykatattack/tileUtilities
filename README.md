@@ -5,6 +5,8 @@ Tile Utilities is a collection of helpful methods and objects for using [Tiled E
 ahead to find out how it works, and then read about how you can use
 the other methods for supplementary features.
 
+Yes, Tile Utilities also contains a full suite of tools for working with isometric maps! That means: isometric collision detection, mouse/touch pointer selection of isometric tiles, and importing of isometric maps created in Tiled Editor.
+
 You can find working examples of how all these methods are used by the
 [Hexi game engine](https://github.com/kittykatattack/hexi) in the
 links below (click
@@ -25,6 +27,8 @@ use the Tile Utilities methods and objects.
 If you need to implement a scrolling camera to your Tiled game world,
 use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
 
+If you have any questions about how any of these methods work, just ask in this repository's **Issues**.
+
 Table of contents
 -----------------
 
@@ -41,6 +45,13 @@ Table of contents
 [getTile](#gettile): Convert a map index value into a sprite's x and y screen position.<br>
 [surroundingCells](#surroundingcells): Find all the map array index numbers surrounding a center index number.<br>
 [getPoints](#getpoints): Find all the map array index numbers surrounding a center index number.<br>
+[byDepth](#bydepth): And array `sort` function for isometric maps that depth-sorts sprites according to their `z` properties.<br>
+[hitTestIsoTile](#hittestisotile): Collision detection for isometric sprites.<br>
+[getIsoPoints](#getisopoints): The isometric equivalent of `getPoints`.<br>
+[makeIsoPointer](#makeisopointer): Add isometric properties to a mouse/touch pointer so that you can select isometric tiles.<br>
+[isoRectangle](#isorectangle): Creates an isometric rectangle that's useful for prototyping isometric maps.<br>
+[addIsoProperties](#addIsoPorperties): Adds isometric properties to any sprite to automatically convert between Cartesian and isometric coordinates.<br>
+[makeIsoTiledWorld](#makeisotiledworld): Creates an isometric world from a Tiled Editor JSON data file. The isometric verision of `makeTiledWorld.<br>
 
 <a id="settingup"></a>
 Setting up
@@ -297,3 +308,119 @@ Here's how you could use the `getPoints` method to find all the collision area's
 ```js
 let cornerPoints = tu.getPoints(elf.collisionArea);
 ```
+
+<a id="bydepth"></a>
+byDepth
+-------
+
+If your sprites in an isometric map have `z` properties that define their depth layers, you can depth-sort them using the array `byDepth` method like this:
+```js
+world.children.sort(tu.byDepth);
+```
+
+<a id="hittestisotile"></a>
+hitTestIsoTile
+--------------
+
+Same API as `hitTestTile`, except that it works with isometric sprites.
+Make sure that your `world` object has properties called
+`cartTileWidth` and `cartTileHeight` that define the Cartesian width and 
+height of your tile cells, in pixels.
+
+<a id="getisopoints"></a>
+getIsoPoints
+--------------
+
+Get all the map index numbers surrounding an isometric map cell. The isometric equivalent to `getPoints`
+
+<a id="makeisopointer"></a>
+makeIsoPointer
+--------------
+Used to add a isometric properties to any mouse/touch `pointer` object with 
+`x` and `y` properties. Supply `makeIsoPointer` with the pointer object and
+the isometric `world` object. As long as your `pointer` object has `x` and `y` position values, it should work.
+```js
+tu.makeIsoPointer(pointer, world);
+```
+It adds the following properties to the `pointer` object:
+```js
+pointer.cartX    //The Cartesian x position on the isometric map
+pointer.cartY    //The Cartesian y position on the isometric map
+pointer.column   //The isometric column over which the pointer is touching
+pointer.row      //The isometric row over which the pointer is touching
+pointer.index    //The map array index value of the current isometric tile
+```
+
+<a id="isorectangle"></a>
+isoRectangle
+--------------
+
+Creates an isometric rectangle (squashed diamond shape) that's useful for prototyping isometric maps. Its first two arguments are the Cartesian width and height of your map's tile cells, and the third is the color. For example:
+```js
+sprite = tu.isoRectangle(world.cartTilewidth, world.cartTileheight, 0xCCCCFF);
+```
+
+<a id="addisoproperties"></a>
+addIsoProperties
+--------------
+
+ Adds isometric properties to any sprite:
+```
+tu.addIsoProperties(anySprite);
+```
+The sprite now has these properties: `cartX`, `cartY`, `isoX`, `isoY`, `cartWidth`, `cartHeight`.
+
+<a id="makeisotiledworld"></a>
+makeIsoTiledWorld
+-----------------
+Creates an isometric world using Tiled Editor JSON map data. It uses the same API as its Cartesian equivalent `makeTiledWorld` method. However, you need to make sure you set Tile Editor up correctly and add some custom map properties to make it work. Let's find out how.
+
+###Configuring and building the map
+Before you start creating your Tiled Editor map, prepare a sprite sheet with the isometric tiles that you want to use. And, very importantly, note down the isometric dimensions of sprites. Here are the pixel dimensions you need to know:
+•   `tilewidth`: The width of the sprite, from its left to right edge.
+•   `tileheight`: The height of the tileheighte’s base area. This is just the height of the squashed diamond shape which defines the base on which the isometric sprite is standing. Usually its half the `tilewidth` value.
+
+[![The tilewidth and tileheight property values](images/03.png)]
+
+These properties are the property names that are used by Tiled Editor, and you’ll be able to access them in the JSON data file that Tiled Editor generates.
+
+You can now use the values to create a new isometric map in Tiled Editor. Open Tiled Editor and select File ~TRA New from the main menu. In the New Map dialog box, select isometric as the Orientation, and use the tilewidth and tileheight values I described above for the Width and Height. 
+
+[![Create an new isometric map in Tiled Editor](images/04.png)]
+
+But we’re not done yet! There are three more values we need to figure out:
+
+•   tileDepth: The total height of the isometric sprite, in pixels. 
+•   cartWidth: The Cartesian width of each tile grid cell, in pixels.
+•   cartHeight: The Cartesian height of each tile grid cell, in pixels.
+
+[![The tileDepth property describes the total height of the isometric sprite](images/05.png)]
+
+You need to add these values as custom properties in Tiled Editor’s Map Properties panel.
+
+[![Create an new isometric map in Tiled Editor](images/06.png)]
+
+When Tiled Editor generates the JSON map data, you'll be able to access these values in the `properties` field.
+```
+"properties":
+    {
+     "cartTileheight":"32",
+     "cartTilewidth":"32",
+     "tileDepth":"64"
+    },
+```
+Now that you’ve got the Map Properties all set up, use your isometric tileset to build your world. Here's an example of what your Tiled Editor workspace might look like.
+
+[![Build your isometric map](images/07.png)]
+
+You can see in the image above that I’ve given the red cube a custom `name` property with the value `“player”`. I’ve also built the map using two layers: the `playerLayer` just contains the red cube, and the  `wallLayer` contains all the maze walls.
+When you're finished designing your map, export it as a JSON file, and you’re now ready to use it to start coding a game. Here's how to use `makeIsoTiledWorld` from the JSON map data and isometric `cubes.png` tileset. 
+```
+world = tu.makeIsoTiledWorld(
+  "images/cubes.json",
+  "images/cubes.png"
+);
+```
+
+
+
