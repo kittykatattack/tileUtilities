@@ -23,7 +23,13 @@ Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/exam
 
 These two examples are the best place to start learning about how to
 use the Tile Utilities methods and objects.
+
+But Tile Utilities also works with isometric maps.
+
+[![Isometric map](images/07.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/42_isometricDepthLayering.html)
     
+Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/isometricDepthLayering.js).
+
 If you need to implement a scrolling camera to your Tiled game world,
 use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
 
@@ -373,7 +379,13 @@ The sprite now has these properties: `cartX`, `cartY`, `isoX`, `isoY`, `cartWidt
 <a id="makeisotiledworld"></a>
 makeIsoTiledWorld
 -----------------
-Creates an isometric world using Tiled Editor JSON map data. It uses the same API as its Cartesian equivalent `makeTiledWorld` method. However, you need to make sure you set Tile Editor up correctly and add some custom map properties to make it work. Let's find out how.
+Creates an isometric world using Tiled Editor JSON map data. 
+
+[![Isometric map made using Tiled Editor](images/08.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/43_isometricTiledEditorSupport.html)
+
+Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/isometricTiledEditorSupport.js).
+
+`makeIsoTiledWorld` uses the same API as its Cartesian equivalent `makeTiledWorld` method. However, you need to make sure you set Tile Editor up correctly and add some custom map properties to make it work. Let's find out how.
 
 ###Configuring and building the map
 Before you start creating your Tiled Editor map, prepare a sprite sheet with the isometric tiles that you want to use. And, very importantly, note down the isometric dimensions of sprites. Here are the pixel dimensions you need to know:
