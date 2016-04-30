@@ -381,7 +381,7 @@ makeIsoTiledWorld
 -----------------
 Creates an isometric world using Tiled Editor JSON map data. 
 
-[![Isometric map made using Tiled Editor](images/08.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/43_isometricTiledEditorSupport.html)
+[![Isometric map made using Tiled Editor](images/09.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/43_isometricTiledEditorSupport.html)
 
 Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/isometricTiledEditorSupport.js).
 
@@ -423,7 +423,7 @@ When Tiled Editor generates the JSON map data, you'll be able to access these va
 ```
 Now that you’ve got the Map Properties all set up, use your isometric tileset to build your world. Here's an example of what your Tiled Editor workspace might look like.
 
-[![Build your isometric map](images/07.png)]
+[![Build your isometric map](images/08.png)]
 
 You can see in the image above that I’ve given the red cube a custom `name` property with the value `“player”`. I’ve also built the map using two layers: the `playerLayer` just contains the red cube, and the  `wallLayer` contains all the maze walls.
 When you're finished designing your map, export it as a JSON file, and you’re now ready to use it to start coding a game. Here's how to use `makeIsoTiledWorld` from the JSON map data and isometric `cubes.png` tileset. 
