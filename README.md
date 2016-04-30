@@ -392,7 +392,7 @@ Before you start creating your Tiled Editor map, prepare a sprite sheet with the
 •   `tilewidth`: The width of the sprite, from its left to right edge.
 •   `tileheight`: The height of the tileheighte’s base area. This is just the height of the squashed diamond shape which defines the base on which the isometric sprite is standing. Usually its half the `tilewidth` value.
 
-[![The tilewidth and tileheight property values](images/03.png)
+[![The tilewidth and tileheight property values](images/03.png)]
 
 These properties are the property names that are used by Tiled Editor, and you’ll be able to access them in the JSON data file that Tiled Editor generates.
 
@@ -406,11 +406,11 @@ But we’re not done yet! There are three more values we need to figure out:
 •   cartWidth: The Cartesian width of each tile grid cell, in pixels.
 •   cartHeight: The Cartesian height of each tile grid cell, in pixels.
 
-[![The tileDepth property describes the total height of the isometric sprite](images/05.png)
+[![The tileDepth property describes the total height of the isometric sprite](images/05.png)]
 
 You need to add these values as custom properties in Tiled Editor’s Map Properties panel.
 
-[![Create an new isometric map in Tiled Editor](images/06.png)
+[![Create an new isometric map in Tiled Editor](images/06.png)]
 
 When Tiled Editor generates the JSON map data, you'll be able to access these values in the `properties` field.
 ```
@@ -423,7 +423,7 @@ When Tiled Editor generates the JSON map data, you'll be able to access these va
 ```
 Now that you’ve got the Map Properties all set up, use your isometric tileset to build your world. Here's an example of what your Tiled Editor workspace might look like.
 
-[![Build your isometric map](images/08.png)
+[![Build your isometric map](images/08.png)]
 
 You can see in the image above that I’ve given the red cube a custom `name` property with the value `“player”`. I’ve also built the map using two layers: the `playerLayer` just contains the red cube, and the  `wallLayer` contains all the maze walls.
 When you're finished designing your map, export it as a JSON file, and you’re now ready to use it to start coding a game. Here's how to use `makeIsoTiledWorld` from the JSON map data and isometric `cubes.png` tileset. 
