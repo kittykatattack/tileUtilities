@@ -300,7 +300,7 @@ class TileUtilities {
   `centerX`, `centerY`, `index`, `gid` (The number in the array that represpents the sprite)
   Here's an example of how you could use `updateMap` in your game code like this:
   
-      blockLayer.data = g.updateMap(blockLayer.data, blockLayer.children, world);
+      blockLayer.data = updateMap(blockLayer.data, blockLayer.children, world);
 
   The `blockLayer.data` array would now contain the new index position numbers of all the 
   child sprites on that layer.
@@ -765,7 +765,7 @@ class TileUtilities {
       let point = sprite.collisionPoints[key];
 
       //Find the point's index number in the map array
-      collision.index = g.getIndex(
+      collision.index = this.getIndex(
         point.x, point.y,
         world.cartTilewidth, world.cartTileheight, world.widthInTiles
       );
@@ -1142,7 +1142,7 @@ class TileUtilities {
 
             //Use the above values to create the sprite's image from
             //the tileset image
-            texture = g.frame(
+            texture = this.frame(
               tileset, tilesetX, tilesetY,
               world.tilewidth, world.tileheight
             );
