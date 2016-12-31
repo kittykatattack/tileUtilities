@@ -124,10 +124,10 @@ Tiled Editor, as pure data. You can then use that data your game code to build c
 
 For example, imagine that you want to create a complex animated walking sprite called "elf".
 First, create the elf object in Tiled Editor as a generic object, but don't assign any image tiles
-to it. Next, in your game code, create a new Pixi `MovieClip` called `elf` and give it any textures you want
+to it. Next, in your game code, create a new Pixi `AnimatedSprite` called `elf` and give it any textures you want
 to use for its animation states.
 ```js
-let elf = new PIXI.extras.MovieClip(elfSpriteTextures);
+let elf = new PIXI.extras.AnimatedSprite(elfSpriteTextures);
 ```
 Then use the `x` and `y` data from the generic "elf" object you created in Tiled Editor to position the 
 `elf` sprite.
