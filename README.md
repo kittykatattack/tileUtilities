@@ -1,6 +1,9 @@
-Tile Utilities
+Tile Utilities for Pixi (v3.9)
 =============
 Tile Utilities is a collection of helpful methods and objects for using [Tiled Editor](http://www.mapeditor.org) with the [Pixi renderering engine](https://github.com/pixijs/pixi.js).
+
+(Important! This library targets Pixi v3.9, which is the most stable version of Pixi, and is the only version I can recommend using. This library will eventually be upgraded for Pixi v4 when the v4 branch matures.)
+
 `makeTiledWorld` is the most important method, so read the documentation
 ahead to find out how it works, and then read about how you can use
 the other methods for supplementary features.
