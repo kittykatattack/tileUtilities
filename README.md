@@ -461,7 +461,8 @@ let shortestPath = tu.shortestPath(
   mapArray,                 //The map array
   mapWidthInTiles,          //Map wdith, in tiles
   [1,2],                    //Obstacle gid array
-  "manhattan"               //Heuristic to use: "manhatten", "euclidean" or "diagonal"
+  "manhattan",               //Heuristic to use: "manhatten", "euclidean" or diagonal"
+  true                      //Use diagonal routes? (true)
 );
 ```
 
