@@ -70,7 +70,6 @@ Table of contents
 [addIsoProperties](#addIsoPorperties): Adds isometric properties to any sprite to automatically convert between Cartesian and isometric coordinates.<br>
 [makeIsoTiledWorld](#makeisotiledworld): Creates an isometric world from a Tiled Editor JSON data file. The isometric verision of `makeTiledWorld.<br>
 [shortestPath](#shortestPath): An A-Star algorithm that finds the shortest path between two points in a map array.<br>
-<a id="shortestPath"></a>
 
 <a id="settingup"></a>
 Setting up
