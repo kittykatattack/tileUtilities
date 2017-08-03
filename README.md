@@ -35,11 +35,11 @@ Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/exam
 
 And, it has a `shortestPath` function that will tell you the shortest path between two index points on a map array.
 
-[![Shortest path](images/10.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/52_shortestPath.html)
+[![Shortest path](images/10.png)](https://raw.githack.com/kittykatattack/hexi/master/examples/52_shortestPath.html)
 
 Which can be used to help a game character navigate through a maze.
 
-[![Walk the path](images/11.png)](https://raw.githack.com/kittykatattack/hexi/master/examples/52_shortestPath.html)
+[![Walk the path](images/11.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/53_walkThePath.html)
 
 If you need to implement a scrolling camera to your game world,
 use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
