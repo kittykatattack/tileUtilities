@@ -39,7 +39,7 @@ And, it has a `shortestPath` function that will tell you the shortest path betwe
 
 Which can be used to help a game character navigate through a maze.
 
-[![Shortest path](images/10.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/53_walkThePath.html)
+[![Shortest path](images/11.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/53_walkThePath.html)
 
 If you need to implement a scrolling camera to your game world,
 use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
