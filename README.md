@@ -33,7 +33,15 @@ But Tile Utilities also works with isometric maps.
     
 Here's the [source code](https://github.com/kittykatattack/hexi/blob/master/examples/src/isometricDepthLayering.js).
 
-If you need to implement a scrolling camera to your Tiled game world,
+And, it has a `shortestPath` function that will tell you the shortest path between two index points on a map array.
+
+[![Shortest path](images/10.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/52_shortestPath.html)
+
+Which can be used to help a game character navigate through a maze.
+
+[![Shortest path](images/10.png)](https://gitcdn.xyz/repo/kittykatattack/hexi/master/examples/53_walkThePath.html)
+
+If you need to implement a scrolling camera to your game world,
 use the `worldCamera` method from the [Game Utilities](https://github.com/kittykatattack/gameUtilities) library.
 
 If you have any questions about how any of these methods work, just ask in this repository's **Issues**.
@@ -61,6 +69,8 @@ Table of contents
 [isoRectangle](#isorectangle): Creates an isometric rectangle that's useful for prototyping isometric maps.<br>
 [addIsoProperties](#addIsoPorperties): Adds isometric properties to any sprite to automatically convert between Cartesian and isometric coordinates.<br>
 [makeIsoTiledWorld](#makeisotiledworld): Creates an isometric world from a Tiled Editor JSON data file. The isometric verision of `makeTiledWorld.<br>
+[shortestPath](#shortestPath): An A-Star algorithm that finds the shortest path between two points in a map array.<br>
+<a id="shortestPath"></a>
 
 <a id="settingup"></a>
 Setting up
@@ -434,6 +444,25 @@ When you're finished designing your map, export it as a JSON file, and you’re 
 world = tu.makeIsoTiledWorld(
   "images/cubes.json",
   "images/cubes.png"
+);
+```
+
+
+<a id="shortestPath"></a>
+shortestPath
+------------
+
+An A-Star search algorithm that returns an array of grid index numbers that
+represent the shortest path between two points on a map. Use it like this:
+
+```
+let shortestPath = tu.shortestPath(
+  startIndex,               //The start map index
+  destinationIndex,         //The destination index
+  mapArray,                 //The map array
+  mapWidthInTiles,          //Map wdith, in tiles
+  [1,2],                    //Obstacle gid array
+  "manhattan"               //Heuristic to use: "manhatten", "euclidean" or "diagonal"
 );
 ```
 
