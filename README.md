@@ -70,6 +70,8 @@ Table of contents
 [addIsoProperties](#addIsoPorperties): Adds isometric properties to any sprite to automatically convert between Cartesian and isometric coordinates.<br>
 [makeIsoTiledWorld](#makeisotiledworld): Creates an isometric world from a Tiled Editor JSON data file. The isometric verision of `makeTiledWorld.<br>
 [shortestPath](#shortestPath): An A-Star algorithm that finds the shortest path between two points in a map array.<br>
+[tileBasedLineOfSight](#tileBasedLineOfSight): Find out whether two sprites
+are visible to each other inside a tile-based maze environment.<br>
 
 <a id="settingup"></a>
 Setting up
@@ -462,9 +464,28 @@ let shortestPath = tu.shortestPath(
   mapWidthInTiles,          //Map wdith, in tiles
   [1,2],                    //Obstacle gid array
   "manhattan",              //Heuristic to use: "manhatten", "euclidean" or diagonal"
-  true                      //Use diagonal routes (true) or orthogonally adjacent routes (false)
+  true                      //Use diagonal routes (true) or orthogonally adjacent routes ()
 );
 ```
 
 
+<a id="tileBasedLineOfSight"></a>
+tileBasedLineOfSight
+--------------------
 
+Use the `tileBasedLineOfSight` function to find out whether two sprites
+are visible to each other inside a tile based maze environment.
+
+```
+let hasLineOfSight = tu.tileBasedLineOfSight(
+  spriteOne,      //The first sprite, with `centerX` and `centerY` properties
+  spriteTwo,      //The second sprite, with `centerX` and `centerY` properties
+  mapArray,       //The tile map array
+  world,          //The `world` object that contains the `tilewidth
+                  //`tileheight` and `widthInTiles` properties
+  emptyGid = 0,   //The Gid that represents and empty tile, usually `0`
+  segment = 32,   //The distance between collision points
+  angles = []     //An array of angles to which you want to 
+                  //restrict the line of sight
+);
+```

@@ -1624,4 +1624,126 @@ let shortestPath = tu.shortestPath(
   //the shortest path
   return theShortestPath;
   }
+
+
+  /*
+  ### tileBasedLineOfSight
+
+  Use the `tileBasedLineOfSight` function to find out whether two sprites
+  are visible to each other inside a tile based maze environment
+
+  */
+
+  tileBasedLineOfSight(
+    spriteOne, //The first sprite, with `centerX` and `centerY` properties
+    spriteTwo, //The second sprite, with `centerX` and `centerY` properties
+    mapArray, //The tile map array
+    world, //The `world` object that contains the `tilewidth
+    //`tileheight` and `widthInTiles` properties
+    emptyGid = 0, //The Gid that represents and empty tile, usually `0`
+    segment = 32, //The distance between collision points
+    angles = [] //An array of angles to which you want to 
+    //restrict the line of sight
+  ) {
+
+    //Plot a vector between spriteTwo and spriteOne
+    let vx = spriteTwo.centerX - spriteOne.centerX,
+      vy = spriteTwo.centerY - spriteOne.centerY;
+
+    //Find the vector's magnitude (its length in pixels)
+    let magnitude = Math.sqrt(vx * vx + vy * vy);
+
+    //How many points will we need to test?
+    let numberOfPoints = magnitude / segment;
+
+    //Create an array of x/y points that
+    //extends from `spriteOne` to `spriteTwo`  
+    let points = () => {
+
+      //Initialize an array that is going to store all our points
+      //along the vector
+      let arrayOfPoints = [];
+
+      //Create a point object for each segment of the vector and 
+      //store its x/y position as well as its index number on
+      //the map array 
+      for (let i = 1; i <= numberOfPoints; i++) {
+
+        //Calculate the new magnitude for this iteration of the loop
+        let newMagnitude = segment * i;
+
+        //Find the unit vector
+        let dx = vx / magnitude,
+          dy = vy / magnitude;
+
+        //Use the unit vector and newMagnitude to figure out the x/y
+        //position of the next point in this loop iteration
+        let x = spriteOne.centerX + dx * newMagnitude,
+          y = spriteOne.centerY + dy * newMagnitude;
+
+
+        //The getIndex function converts x/y coordinates into
+        //map array index positon numbers
+        let getIndex = (x, y, tilewidth, tileheight, mapWidthInTiles) => {
+
+          //Convert pixel coordinates to map index coordinates
+          let index = {};
+          index.x = Math.floor(x / tilewidth);
+          index.y = Math.floor(y / tileheight);
+
+          //Return the index number
+          return index.x + (index.y * mapWidthInTiles);
+        };
+
+        //Find the map index number that this x and y point corresponds to
+        let index = this.getIndex(
+          x, y,
+          world.tilewidth,
+          world.tileheight,
+          world.widthInTiles
+        );
+
+        //Push the point into the `arrayOfPoints`
+        arrayOfPoints.push({
+          x, y, index
+        });
+      }
+
+      //Return the array
+      return arrayOfPoints;
+    };
+
+    //The tile-based collision test.
+    //The `noObstacles` function will return `true` if all the tile
+    //index numbers along the vector are `0`, which means they contain 
+    //no walls. If any of them aren't 0, then the function returns
+    //`false` which means there's a wall in the way 
+    let noObstacles = points().every(point => {
+      return mapArray[point.index] === emptyGid
+    });
+
+    //Restrict the line of sight to right angles only (we don't want to
+    //use diagonals)
+    let validAngle = () => {
+
+      //Find the angle of the vector between the two sprites
+      let angle = Math.atan2(vy, vx) * 180 / Math.PI;
+
+      //If the angle matches one of the valid angles, return
+      //`true`, otherwise return `false`
+      if (angles.length !== 0) {
+        return angles.some(x => x === angle);
+      } else {
+        return true;
+      }
+    };
+
+    //Return `true` if there are no obstacles and the line of sight
+    //is at a 90 degree angle
+    if (noObstacles === true && validAngle() === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
