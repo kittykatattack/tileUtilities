@@ -604,7 +604,7 @@ class TileUtilities {
             //matches the current tile, and that sub-object has a `name` property,
             //then create a sprite and assign the tile properties onto
             //the sprite
-            if (tileproperties[key] && tileproperties[key].name) {
+            if (tileproperties && tileproperties[key] && tileproperties[key].name) {
 
               //Make a sprite
               tileSprite = new this.Sprite(texture);
